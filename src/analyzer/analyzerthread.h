@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <optional>
 #include <vector>
 
@@ -13,6 +12,7 @@
 #include "track/track_decl.h"
 #include "track/trackid.h"
 #include "util/db/dbconnectionpool.h"
+#include "util/memory.h"
 #include "util/performancetimer.h"
 #include "util/samplebuffer.h"
 #include "util/workerthread.h"

@@ -2,7 +2,8 @@
 
 #include <QLibrary>
 #include <QtDebug>
-#include <memory>
+
+#include "util/memory.h"
 
 namespace faad2 {
 

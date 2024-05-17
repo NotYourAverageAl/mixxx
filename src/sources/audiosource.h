@@ -1,11 +1,10 @@
 #pragma once
 
-#include <memory>
-
 #include "audio/streaminfo.h"
 #include "engine/engine.h"
 #include "sources/urlresource.h"
 #include "util/indexrange.h"
+#include "util/memory.h"
 #include "util/samplebuffer.h"
 
 namespace mixxx {

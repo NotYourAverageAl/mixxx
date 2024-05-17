@@ -5,7 +5,6 @@
 
 #include <QTest>
 #include <QtDebug>
-#include <memory>
 
 #include "control/controlindicatortimer.h"
 #include "control/controlobject.h"
@@ -26,6 +25,7 @@
 #include "test/soundsourceproviderregistration.h"
 #include "track/track.h"
 #include "util/defs.h"
+#include "util/memory.h"
 #include "util/sample.h"
 #include "util/types.h"
 

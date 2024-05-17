@@ -1,8 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include "sources/soundsourceprovider.h"
+#include "util/memory.h"
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #include <vorbis/vorbisfile.h>

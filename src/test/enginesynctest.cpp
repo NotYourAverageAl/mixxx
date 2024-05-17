@@ -1,7 +1,6 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include <memory>
 #include <string>
 
 #include "control/controlobject.h"
@@ -12,6 +11,7 @@
 #include "test/mixxxtest.h"
 #include "test/mockedenginebackendtest.h"
 #include "track/beats.h"
+#include "util/memory.h"
 
 namespace {
 constexpr double kMaxFloatingPointErrorLowPrecision = 0.005;

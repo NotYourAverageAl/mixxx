@@ -1,11 +1,10 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include <memory>
-
 #include "control/controlobject.h"
 #include "control/controlobjectscript.h"
 #include "test/mixxxtest.h"
+#include "util/memory.h"
 
 using ::testing::_;
 using ::testing::DoubleEq;

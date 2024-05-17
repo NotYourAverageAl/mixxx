@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 
-#include <QScopedPointer>
 #include <QtDebug>
-#include <memory>
+#include <QScopedPointer>
 
-#include "control/controlobject.h"
-#include "control/controlproxy.h"
-#include "control/controlpushbutton.h"
-#include "engine/controls/loopingcontrol.h"
 #include "mixxxtest.h"
+#include "control/controlobject.h"
+#include "control/controlpushbutton.h"
+#include "control/controlproxy.h"
+#include "engine/controls/loopingcontrol.h"
 #include "test/mockedenginebackendtest.h"
+#include "util/memory.h"
 
 namespace {
 

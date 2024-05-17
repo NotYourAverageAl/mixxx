@@ -1,8 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include "effects/backends/effectprocessor.h"
+#include "util/memory.h"
 #include "util/types.h"
 
 class EngineFilterBiquad1HighShelving;

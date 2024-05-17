@@ -615,7 +615,7 @@ QVariant BaseTrackTableModel::roleValue(
             // Same value as for Qt::DisplayRole (see below)
             break;
         }
-        [[fallthrough]];
+        M_FALLTHROUGH_INTENDED;
     // NOTE: for export we need to fall through to Qt::DisplayRole,
     // so do not add any other role cases here, or the export
     // will be empty

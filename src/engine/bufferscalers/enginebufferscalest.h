@@ -1,8 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include "engine/bufferscalers/enginebufferscale.h"
+#include "util/memory.h"
 #include "util/samplebuffer.h"
 
 class ReadAheadManager;

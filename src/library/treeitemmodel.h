@@ -3,7 +3,8 @@
 #include <QAbstractItemModel>
 #include <QModelIndex>
 #include <QVariant>
-#include <memory>
+
+#include "util/memory.h"
 
 class TreeItem;
 

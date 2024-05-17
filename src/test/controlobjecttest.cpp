@@ -1,9 +1,8 @@
 #include <gtest/gtest.h>
-
 #include <QtDebug>
-#include <memory>
 
 #include "control/controlobject.h"
+#include "util/memory.h"
 #include "test/mixxxtest.h"
 
 namespace {
