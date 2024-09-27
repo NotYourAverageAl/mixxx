@@ -71,6 +71,7 @@ EngineBuffer::EngineBuffer(const QString& group,
           m_pReader(nullptr),
           m_playPos(kInitialPlayPosition),
           m_speed_old(0),
+          m_actual_speed(0),
           m_tempo_ratio_old(1.),
           m_scratching_old(false),
           m_reverse_old(false),
@@ -116,7 +117,7 @@ EngineBuffer::EngineBuffer(const QString& group,
 
     // Play button
     m_playButton = new ControlPushButton(ConfigKey(m_group, "play"));
-    m_playButton->setButtonMode(ControlPushButton::TOGGLE);
+    m_playButton->setButtonMode(mixxx::control::ButtonMode::Toggle);
     m_playButton->connectValueChangeRequest(
             this, &EngineBuffer::slotControlPlayRequest,
             Qt::DirectConnection);
@@ -141,7 +142,7 @@ EngineBuffer::EngineBuffer(const QString& group,
 
     // Start button
     m_startButton = new ControlPushButton(ConfigKey(m_group, "start"));
-    m_startButton->setButtonMode(ControlPushButton::TRIGGER);
+    m_startButton->setButtonMode(mixxx::control::ButtonMode::Trigger);
     connect(m_startButton, &ControlObject::valueChanged,
             this, &EngineBuffer::slotControlStart,
             Qt::DirectConnection);
@@ -153,7 +154,7 @@ EngineBuffer::EngineBuffer(const QString& group,
             Qt::DirectConnection);
 
     m_pSlipButton = new ControlPushButton(ConfigKey(m_group, "slip_enabled"));
-    m_pSlipButton->setButtonMode(ControlPushButton::TOGGLE);
+    m_pSlipButton->setButtonMode(mixxx::control::ButtonMode::Toggle);
 
     m_playposSlider = new ControlLinPotmeter(
         ConfigKey(m_group, "playposition"), 0.0, 1.0, 0, 0, true);
@@ -165,7 +166,7 @@ EngineBuffer::EngineBuffer(const QString& group,
     m_visualPlayPos = VisualPlayPosition::getVisualPlayPosition(m_group);
 
     m_pRepeat = new ControlPushButton(ConfigKey(m_group, "repeat"));
-    m_pRepeat->setButtonMode(ControlPushButton::TOGGLE);
+    m_pRepeat->setButtonMode(mixxx::control::ButtonMode::Toggle);
 
     m_pSampleRate = new ControlProxy(kAppGroup, QStringLiteral("samplerate"), this);
 
@@ -173,7 +174,7 @@ EngineBuffer::EngineBuffer(const QString& group,
     m_pTrackSampleRate = new ControlObject(ConfigKey(m_group, "track_samplerate"));
 
     m_pKeylock = new ControlPushButton(ConfigKey(m_group, "keylock"), true);
-    m_pKeylock->setButtonMode(ControlPushButton::TOGGLE);
+    m_pKeylock->setButtonMode(mixxx::control::ButtonMode::Toggle);
 
     m_pReplayGain = new ControlProxy(m_group, QStringLiteral("replaygain"), this);
 
@@ -1139,7 +1140,11 @@ void EngineBuffer::processTrackLocked(
         }
     }
 
+    m_actual_speed = (m_playPos - playpos_old) / (iBufferSize / 2);
+    // qDebug() << "Ramped Speed" << m_actual_speed / m_speed_old;
+
     for (const auto& pControl : std::as_const(m_engineControls)) {
+        // m_playPos is already updated here and points to the end of the played buffer
         pControl->setFrameInfo(m_playPos, trackEndPosition, m_trackSampleRateOld);
         pControl->process(rate, m_playPos, iBufferSize);
     }
@@ -1226,6 +1231,7 @@ void EngineBuffer::process(CSAMPLE* pOutput, const int iBufferSize) {
 
         m_rate_old = 0;
         m_speed_old = 0;
+        m_actual_speed = 0;
         m_scratching_old = false;
     }
 
@@ -1604,7 +1610,7 @@ double EngineBuffer::getRateRatio() const {
 
 void EngineBuffer::collectFeatures(GroupFeatureState* pGroupFeatures) const {
     if (m_pBpmControl != nullptr) {
-        m_pBpmControl->collectFeatures(pGroupFeatures);
+        m_pBpmControl->collectFeatures(pGroupFeatures, m_actual_speed);
     }
 }
 
